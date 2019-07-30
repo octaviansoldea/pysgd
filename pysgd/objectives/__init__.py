@@ -9,7 +9,9 @@ class Objective(object):
 
     def __init__(self, obj, data, size):
 
-        obj = importlib.import_module('pysgd.objectives.' + obj)
+        str_obj = obj
+
+        obj = importlib.import_module('pysgd.objectives.' + str_obj)
 
         def batches_gen(data=data, size=size):
             i = 0
@@ -30,7 +32,11 @@ class Objective(object):
         def cost_from_data(theta):
             return obj.cost_fun(theta, data)
 
-        if data.size > 1:
+        if str_obj == 'polynomial':
+            obj.init(data[0, :], data[1, :])
+            self.grad = obj.grad_fun
+            self.cost = obj.cost_fun
+        elif data.size > 1:
             self.grad = grad_from_data
             self.cost = cost_from_data
         else:

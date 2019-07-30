@@ -58,5 +58,5 @@ def sgd(
         i += 1
     # Trim zeros and return
     theta_hist = theta_hist[:i]
-    return theta_hist
+    return theta_hist, theta
 
