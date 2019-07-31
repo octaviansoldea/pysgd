@@ -37,6 +37,10 @@ def sgd(
     # Initialize theta generator
     theta_gen = grad_adapt(params, obj_fun.grad)(theta0)
 
+    if obj == 'polynomial':
+      argument_polynom_minimum = min(data[0, :])
+      argument_polynom_maximum = max(data[0, :])
+
     # Initialize iteration variables
     delta = float("inf")
     i = 1
@@ -45,6 +49,14 @@ def sgd(
     while delta > delta_min:
         # Get next theta
         theta = next(theta_gen)
+
+        if obj == 'polynomial':
+            value = theta[0]
+            if value < argument_polynom_minimum or value > argument_polynom_maximum:
+                value = max(argument_polynom_minimum, value)
+                value = min(argument_polynom_maximum, value)
+                theta = [value]
+                break
 
         # Store cost for plotting, test for convergence
         try:

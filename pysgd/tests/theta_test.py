@@ -24,7 +24,6 @@ def test_theta(obj, adapt):
         data = np.array([])
         theta0 = np.array([-0.2, -4.4])
     elif obj == 'polynomial':
-        #data = np.array([[-1, 0, 1, 2], [1, 0, 1, 4]])
         data = np.array([[-1.9, -0.9, 0.1, 1.1, 2.1], [4, 1, 0, 1, 4]])
         theta0 = np.array([1.5])
     else:
